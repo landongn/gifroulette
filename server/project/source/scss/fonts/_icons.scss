@@ -1,0 +1,34 @@
+@import url(http://fonts.googleapis.com/css?family=Lato|Arvo|Cabin:400,700);
+
+$line-height: 22px;
+
+@mixin lato {
+	font-family: 'Lato';
+	font-weight: 400;
+	line-height: $line-height;
+}
+
+@mixin arvo {
+	font-family: 'Arvo';
+	font-weight: 400;
+	line-height: $line-height;
+}
+
+@mixin cabin {
+	font-family: 'Cabin';
+	font-weight: 400;
+	line-height: $line-height;
+}
+
+article, aside, details, summary, figcaption, figure,
+footer, header, hgroup, menu, nav, section, div, p, dd, ul, li {
+	@include lato;
+}
+
+h1, h2, h3 {
+	@include cabin;
+}
+
+h4, h5, h6 {
+	@include arvo;
+}

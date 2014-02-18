@@ -1,0 +1,52 @@
+html {
+	background: #fff;
+	@extend %typeface;
+}
+
+a {
+	color: #4e7c99;
+}
+
+#main {
+	padding: 20px;
+}
+
+.top-bar {
+	background:$white;
+	color: $darkgray;
+	a {
+		@include transition(background 200ms ease-in-out,
+							color 200ms ease-in-out);
+		&:hover {
+			@include transition(background 200ms ease-in-out,
+								color 200ms ease-in-out,
+								-webkit-filter 200ms ease-in-out);
+		}
+	}
+}
+
+.top-bar .name h1 a {
+	color: $darkgray;
+	&:hover {
+		-webkit-filter: blur(1px);
+		color: darken($brightgray, 8%);
+		background: darken($white, 3%);
+	}
+}
+
+.top-bar-section ul li > a {
+	color: $darkgray;
+	background: $white;
+	@include cabin;
+}
+.top-bar-section ul li > a.active {
+	color: $brightgray;
+	background: darken($white, 5%) !important;
+}
+.top-bar-section li:not(.has-form) a:not(.button) {
+	background: $white;
+}
+.top-bar-section li:not(.has-form) a:not(.button):hover {
+	color: $brightgray;
+	background: darken($white, 5%);
+}

@@ -1,0 +1,8 @@
+<ul>
+{{#each page in controller}}
+	<li>
+		<p>{{page.status}}</p>
+		<img {{bind-attr src=page.asset_url}} alt="">
+	</li>
+{{/each}}
+</ul>
