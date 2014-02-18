@@ -1,0 +1,13 @@
+{{!-- <button class="cleanup"{{action 'cleanup'}}>clean up the mess</button> --}}
+
+<div class="row">
+	<div class="large-12 columns">
+		{{#each gif in controller}}
+			{{#view App.PostView}}
+				<div class="imgwrap">
+					<a {{bind-attr href=gif.asset_url}} target="_blank"><img {{bind-attr src=gif.asset_url}} alt=""></a>
+				</div>
+			{{/view}}
+		{{/each}}
+	</div>
+</div>

@@ -5,7 +5,7 @@ App.Router.map(function() {
 
 	this.resource('lobby', {path: '/lobby'}, function () {});
 
-	this.resource('play', {path: '/play/:game_id'}, function () {
+	this.resource('play', {path: '/play'}, function () {
 		this.route('setup');
 		this.route('persist');
 		this.route('tag');

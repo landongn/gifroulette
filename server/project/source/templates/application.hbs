@@ -8,12 +8,18 @@
   <section class="top-bar-section">
     <!-- Left Nav Section -->
     <ul class="left">
-      <li>{{#link-to 'join.index'}}Join{{/link-to}}</li>
+      {{!-- <li>{{#link-to 'join.index'}}Join{{/link-to}}</li> --}}
+      <li>{{#link-to 'play.index'}}start the flood{{/link-to}}</li>
       {{!-- <li>{{#link-to 'lobby'}}Spectate{{/link-to}}</li> --}}
     </ul>
   </section>
 </nav>
 
-<section class="container">
+<section class="container row">
   {{outlet}}
 </section>
+
+<footer>
+  <p>Sorry, Internet.</p>
+  <p>Regards, <a href="http://twitter.com/landongn">@landongn</a></p>
+</footer>

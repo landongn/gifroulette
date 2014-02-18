@@ -1,3 +1,22 @@
-.page-home {
+.post {
+	float: left; 
+	max-width: 320px;
+	height: auto;
+	position:relative;
+	margin: 10px;
+	padding: 5px;
+	@include translateX(-900px);
+	@include opacity(0);
+	&.active {
+		@include translateX(0);
+		@include opacity(1);
+		@include transition(transform 450ms ease-out, opacity 200ms ease-out);
+	}
+}
 
+button.cleanup {
+	background: $white;
+	border: 1px solid $white;
+	color: $darkgray;
+	@include cabin;
 }

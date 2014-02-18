@@ -4,6 +4,14 @@
 
  */
 
+ var models = {
+	rosters: [],
+	users: [],
+	chatlog: [],
+	user: {},
+	gifs: []
+ };
+
 App.SocketClient = Ember.Object.extend({
 
 	connected: false,
@@ -16,27 +24,33 @@ App.SocketClient = Ember.Object.extend({
 			this.set('connected', true);
 		}.bind(this));
 
-		this.set('models.user', {
+		models.user = {
 			username: 'guest' + Math.floor(Math.Random * 1000)
-		});
+		};
 
 	},
 
-	models: {
-		rosters: {},
-		users: {},
-		chatlog: {},
-		user: {},
-		gifs: {}
+	getRoster: function () {
+		return models.rosters;
+	},
+
+	getLog: function () {
+		return models.chatlog;
+	},
+	getUsers: function () {
+		return models.users;
+	},
+	getGifs: function () {
+		return models.gifs;
 	},
 
 	emit: function (name, payload) {
 		this._socket.emit(name, payload);
 	},
-	
-	socket: function () {
-		return this._socket;
-	}.property(),
+
+	models: {
+		gifs: models.gifs
+	},
 
 	setupEvents: function () {
 		var self = this;
@@ -51,15 +65,17 @@ App.SocketClient = Ember.Object.extend({
 	}.observes('connected'),
 
 	gif: function (packet) {
-		var model = this.get('models.gifs');
+		var model = models.gifs;
 		model.pushObject(packet);
 		if (model.length >= 10) {
-			model.removeObject(model[model.length -1]);
+			model.removeObject(model[model.length - 3]);
 		}
+
+		App.__container__.lookup('controller:play').send('updateGifs', packet);
 	},
 	ident: function (packet) {
 		console.log('asking for ident');
-		this.emit('packet', {type: 'ident', username: this.get("models.user.username")});
+		this.emit('packet', {type: 'ident', username: models.user.username});
 	},
 	request: function (packet) {},
 	upvote: function (packet) {},

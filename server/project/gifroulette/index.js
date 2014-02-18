@@ -13,7 +13,6 @@ function Server (io) {
 	this.io.on('connection', function (socket) {
 		self.on_connection(socket);
 		socket.on('packet', function (payload) {
-			console.log('packet recieved', payload);
 			self.onPacket(socket, payload);
 		});
 		socket.on('disconnect', function () {
