@@ -2,6 +2,9 @@
 
 <div class="row">
 	<div class="large-12 columns">
+		{{#if isEmpty}}
+		<h2>It can take a moment or two to get situated.  Such Tension!</h2>
+		{{else}}
 		{{#each gif in controller}}
 			{{#view App.PostView}}
 				<div class="imgwrap">
@@ -9,5 +12,6 @@
 				</div>
 			{{/view}}
 		{{/each}}
+		{{/if}}
 	</div>
 </div>

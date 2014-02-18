@@ -10,11 +10,6 @@ App.PlayRoute = Em.Route.extend({
 	actions: {
 		updateGifs: function (gif) {
 			this.controllerFor('play').pushObject(gif);
-			this.gifCount++;
-			if (this.gifCount === 45) {
-				this.controllerFor('play').clear();
-				this.gifCount = 0;
-			}
 		}
 	},
 	truncate: function () {
