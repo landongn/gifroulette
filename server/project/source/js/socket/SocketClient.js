@@ -18,7 +18,7 @@ App.SocketClient = Ember.Object.extend({
 
 	init: function () {
 		this._super();
-		this._socket = io.connect('http://localhost');
+		this._socket = io.connect('http://gifroulette.tv');
 
 		this._socket.on('connect', function () {
 			this.set('connected', true);
