@@ -12,6 +12,9 @@
 		@include opacity(1);
 		@include transition(transform 450ms ease-out, opacity 200ms ease-out);
 	}
+	&:hover {
+		-webkit-filter: blur(2px);
+	}
 }
 
 button.cleanup {
