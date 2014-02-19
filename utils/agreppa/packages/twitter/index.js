@@ -48,8 +48,8 @@ TwitterParser.prototype = {
 		this._parser.stream('filter', {track:'gif'}, function(stream) {
 			self.isStreaming = true;
 			stream.on('data', function(data) {
-				var lang = lngDetector.detect(data.text, 1);
-				if (lang.length && lang[0] && lang[0][0] === 'english') {
+				// var lang = lngDetector.detect(data.text, 1);
+				// if (lang.length && lang[0] && lang[0][0] === 'english') {
 					if (data.entities.urls.length) {
 
 						for (var i = data.entities.urls.length - 1; i >= 0; i--) {
@@ -69,7 +69,7 @@ TwitterParser.prototype = {
 							self.server.incomingTweet(t);
 						}
 					}
-				}
+				// }
 
 			});
 			// Disconnect stream after fifteen seconds
