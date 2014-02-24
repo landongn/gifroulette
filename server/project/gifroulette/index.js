@@ -69,6 +69,11 @@ Server.prototype = {
 
 	on_play: function (socket, payload) {},
 
+	on_chat: function (socket, payload) {
+		console.log(payload);
+		this.io.sockets.emit('chat', payload);
+	}
+
 
 
 };

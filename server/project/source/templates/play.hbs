@@ -2,16 +2,41 @@
 
 <div class="row">
 	<div class="large-12 columns">
-		{{#if isEmpty}}
-		<h2>It can take a moment or two to get situated.  Such Tension!</h2>
-		{{else}}
-		{{#each gif in controller}}
-			{{#view App.PostView}}
-				<div class="imgwrap">
-					<a {{bind-attr href=gif.asset_url}} target="_blank"><img {{bind-attr src=gif.asset_url}} alt=""></a>
-				</div>
-			{{/view}}
-		{{/each}}
-		{{/if}}
+		<div class="tv-container">
+		  <div class="outer-bevel"></div>
+		  <div class="inner-bevel"></div>
+		  <div class="screen">
+		  	{{#if hasStatic}}
+		  	<img src="/static/img/static.gif">
+		  	{{else}}
+		  	<img {{bind-attr src=currentGif}}>
+		  	{{/if}}
+		  </div>
+		  <div class="stand">
+		    <div class="base"></div>
+		  </div>
+		</div>
+
+		<div class="remote">
+		  <div class="section top">
+		    <button class="power">Power</button>
+		    <button class="pause">Pause</button>
+		  </div>
+		  <div class="section voting">
+		    <button class="upvote" {{action 'newGif'}}>upvote</button>
+		    <button class="downvote"{{action 'newGif'}}>downvote</button>
+		  </div>
+		  <div class="section tag">
+		  	<h3>add a tag, one per line</h3>
+		    {{textarea autoresize='false' name="tagging" cols="14" rows="16" value=currentTags}}
+		  </div>
+		</div>
+
+		<div class="chat">
+		  <div class="log">
+		  	{{outlet "chatlog"}}
+		  </div>
+		  {{view App.ChatInputView}}
+		</div>
 	</div>
 </div>

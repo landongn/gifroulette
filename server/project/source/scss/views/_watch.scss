@@ -1,0 +1,110 @@
+body {
+  background: rgba(33, 33, 33, 1);
+}
+
+.remote {
+  position:fixed;
+  left: 45px;
+  top: 130px;
+  width: 200px;
+  height: 500px;
+  border-radius: 30px;
+  background: rgba(55, 55, 55, 1);
+  .section {
+    padding: 20px;
+  }
+  button {
+    background: rgba(33, 33, 33, 1);
+    border: none;
+    border-radius: none;
+    color: #fff;
+    padding: 10px;
+    width: 45%;
+    font-size: 12px;
+  }
+  .tag {
+    h3 {
+      color: $white;
+      font-size: 14px;
+    }
+  }
+  textarea {
+    background: rgba(33, 33, 33, 0.5);
+    border: none;
+    padding: 10px;
+    color: #fff;
+    min-height: 200px;
+  }
+  
+  .top {
+    position:relative;
+    top: 10px;
+    border-bottom: 1px solid #333;
+  }
+}
+
+.tv-container {
+  width: 960px;
+  height: 580px;
+  color: #eee;
+  display: block;
+  position: relative;
+  background: rgba(20, 20, 20, 1);
+  @include box-shadow(
+    2px 0 0 10px rgba(51, 51, 51, 1),
+    -2px 0 0 10px rgba(51, 51, 51, 1)
+  );
+  
+  margin: 30px auto;
+  
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  background: rgba(33, 33, 33, 0.3);
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    outline: none;
+  }
+}
+
+.stand {
+  position:relative;
+  width: 300px;
+  height: 30px;
+  bottom: -10px;
+  background: #000;
+  margin: auto;
+  border-radius: 0 0 10px 10px;
+  .base {
+    width: 600px;
+    background: #000;
+    position:relative;
+    height: 10px;
+    bottom: -20px;
+    left: -150px;
+  }
+}
+
+.chat {
+  position: fixed;
+  right: 0;
+  bottom: 70px;
+  top: 45px;
+  width: 186px;
+  background: #333;
+  input {
+    background: $lightgray;
+    color: $white;
+    border:none;
+    &:focus {
+      background: $lightgray;
+      color: $white;
+    }
+  }
+}

@@ -18,7 +18,7 @@ App.SocketClient = Ember.Object.extend({
 
 	init: function () {
 		this._super();
-		this._socket = io.connect('http://gifroulette.tv');
+		this._socket = io.connect();
 
 		this._socket.on('connect', function () {
 			this.set('connected', true);
@@ -61,8 +61,10 @@ App.SocketClient = Ember.Object.extend({
 			this._socket.on('upvote', self.upvote);
 			this._socket.on('loadAsset', self.loadAsset);
 			this._socket.on('displayAsset', self.displayAsset);
+			this._socket.on('chat', self.chatMessage);
 		}
 	}.observes('connected'),
+
 
 	gif: function (packet) {
 		var model = models.gifs;
@@ -70,7 +72,6 @@ App.SocketClient = Ember.Object.extend({
 		if (model.length >= 10) {
 			model.removeObject(model[model.length - 3]);
 		}
-
 		App.__container__.lookup('controller:play').send('updateGifs', packet);
 	},
 	ident: function (packet) {
@@ -80,5 +81,18 @@ App.SocketClient = Ember.Object.extend({
 	request: function (packet) {},
 	upvote: function (packet) {},
 	loadAsset: function (packet) {},
-	displayAsset: function (packet) {}
+	displayAsset: function (packet) {},
+	chatMessage: function (packet) {
+		App.__container__.lookup('view:chatlog').newMessage(packet);
+	},
+
+	sendMessage: function (packet) {
+		var p = {
+			message: packet,
+			type: 'chat',
+			username: models.user.username
+		};
+
+		this.emit('packet', p);
+	}
 });
