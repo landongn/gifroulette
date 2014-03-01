@@ -121,8 +121,6 @@ Server.prototype = {
 		}
 	},
 
-	
-
 	on_disconnect: function (socket, payload) {
 		if (this.clients[socket.id]) {
 			this.clients[socket.id] = null;
