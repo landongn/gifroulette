@@ -94,17 +94,60 @@ body {
 .chat {
   position: fixed;
   right: 0;
-  bottom: 70px;
+  bottom: 113px;
   top: 45px;
-  width: 186px;
-  background: #333;
+  width: 210px;
+  background: $grayblue;
+  overflow:auto;
+  padding-bottom: 100px;
   input {
-    background: $lightgray;
-    color: $white;
+    background: $grayblue;
+    color: $offwhite;
     border:none;
+    position:fixed;
+    bottom: 57px;
     &:focus {
       background: $lightgray;
-      color: $white;
+      color: $offwhite;
+    }
+    &:after {
+      @include css-triangle(left);
+      content: '';
+    }
+  }
+  .log {
+    .ember-view {
+      &.pre {
+          @include opacity(0);
+          @include translate3d(0, -800px, 0);
+          @include transition(all 450ms cubic-bezier(1.0, 0.1, 0.1, 1.0));
+        }
+        @include transition(all 450ms cubic-bezier(1.0, 0.1, 0.1, 1.0));
+        @include translate3d(0, 0, 0);
+        @include opacity(1);
+      .chat-message {
+        background: $greena;
+        display: block;
+        position: relative;
+        float: left;
+        color: #fff;
+        width: 100%;
+        padding:8px 16px;
+        h6 {
+          color: $offwhite;
+          font-size: 14px;
+          @include lato;
+          text-align: right;
+          font-weight: normal;
+          margin: 2px 5px;
+          letter-spacing: 1px;
+        }
+        p {
+          font-size: 14px;
+          color: $offwhite;
+          margin-left: 5px;
+        }
+      }
     }
   }
 }

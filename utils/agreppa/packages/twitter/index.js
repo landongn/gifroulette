@@ -18,7 +18,6 @@ var TweetSchema = mongoose.Schema({
 var Tweet = mongoose.model('Tweet', TweetSchema);
 
 function TwitterParser (config, server) {
-	console.log(server);
 	this.server = server;
 	this._parser = new twitter({
 		consumer_key: config.consumer_key,
@@ -38,6 +37,8 @@ TwitterParser.prototype = {
 
 	server: null,
 
+	recentlyCapturedUrls: {},
+
 	startStream: function () {
 		if (this.isStreaming) {
 			return;
@@ -45,11 +46,11 @@ TwitterParser.prototype = {
 		console.info('Starting TwitterParser'.green);
 		var self = this;
 
-		this._parser.stream('filter', {track:'gif'}, function(stream) {
+		this._parser.stream('filter', {track:'gif'}, function (stream) {
 			self.isStreaming = true;
 			stream.on('data', function(data) {
-				// var lang = lngDetector.detect(data.text, 1);
-				// if (lang.length && lang[0] && lang[0][0] === 'english') {
+				var lang = lngDetector.detect(data.text, 1);
+				if (lang.length && lang[0] && lang[0][0] === 'english') {
 					if (data.entities.urls.length) {
 
 						for (var i = data.entities.urls.length - 1; i >= 0; i--) {
@@ -65,11 +66,11 @@ TwitterParser.prototype = {
 								hashtags: data.entities.hashtags.join('|')
 							});
 
-							//t.save();
+							t.save();
 							self.server.incomingTweet(t);
 						}
 					}
-				// }
+				}
 
 			});
 			// Disconnect stream after fifteen seconds

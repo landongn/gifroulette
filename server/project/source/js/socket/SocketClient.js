@@ -75,7 +75,6 @@ App.SocketClient = Ember.Object.extend({
 		App.__container__.lookup('controller:play').send('updateGifs', packet);
 	},
 	ident: function (packet) {
-		console.log('asking for ident');
 		this.emit('packet', {type: 'ident', username: models.user.username});
 	},
 	request: function (packet) {},
@@ -83,7 +82,7 @@ App.SocketClient = Ember.Object.extend({
 	loadAsset: function (packet) {},
 	displayAsset: function (packet) {},
 	chatMessage: function (packet) {
-		App.__container__.lookup('view:chatlog').newMessage(packet);
+		App.__container__.lookup('controller:chatlog').send('newMessage', packet);
 	},
 
 	sendMessage: function (packet) {

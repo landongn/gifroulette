@@ -1,7 +1,6 @@
 App.ChatInputView = Ember.TextField.extend({
 	keyPress: function (e) {
-		if (e.keyCode === 13) {
-			console.log('sending', this.get('value'));
+		if (e.keyCode === 13 && this.get('value').length >= 'lol'.length) {
 			App.socket.sendMessage(this.get('value'));
 			this.set('value', '');
 		}

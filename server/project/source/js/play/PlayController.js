@@ -21,7 +21,7 @@ App.PlayController = Ember.ArrayController.extend({
 			Em.run.later(function () {
 				this.set('hasStatic', false);
 				var g = this.getRandomGif();
-				if (g.asset_url) {
+				if (g && g.asset_url && g.asset_url.match(/\.gif/)) {
 					this.set('currentGif', g.asset_url);
 				}
 			}.bind(this), 350);

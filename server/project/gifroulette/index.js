@@ -6,6 +6,20 @@ var mongoose = require('mongoose');
 var Agreppa = require('../../../utils/agreppa/start.js');
 var Lobby = require('./lobby.js');
 
+var TweetSchema = mongoose.Schema({
+	from_user: String,
+	from_userId: String,
+	asset_url: String,
+	added: Number,
+	retweets: Number,
+	favorites: Number,
+	status: String,
+	hashtags: String
+});
+
+var Tweet = mongoose.model('Tweet', TweetSchema);
+
+
 function Server (io) {
 	this.io = io;
 	var self = this;
@@ -67,7 +81,9 @@ Server.prototype = {
 
 	on_join: function (socket, payload) {},
 
-	on_play: function (socket, payload) {},
+	on_play: function (socket, payload) {
+		Tweet.find({})
+	},
 
 	on_chat: function (socket, payload) {
 		console.log(payload);
