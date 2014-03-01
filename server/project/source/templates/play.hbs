@@ -9,7 +9,7 @@
 		  	{{#if hasStatic}}
 		  	<img src="/static/img/static.gif">
 		  	{{else}}
-		  	<img {{bind-attr src=currentGif}}>
+		  	<img {{bind-attr src=currentGif.asset_url}}>
 		  	{{/if}}
 		  </div>
 		  <div class="stand">
@@ -23,8 +23,8 @@
 		    <button class="pause">Pause</button>
 		  </div>
 		  <div class="section voting">
-		    <button class="upvote" {{action 'newGif'}}>upvote</button>
-		    <button class="downvote"{{action 'newGif'}}>downvote</button>
+		    <button class="upvote" {{action 'sendUpvote'}}>upvote</button>
+		    <button class="downvote"{{action 'sendDownvote'}}>downvote</button>
 		  </div>
 		  <div class="section tag">
 		  	<h3>add a tag, one per line</h3>

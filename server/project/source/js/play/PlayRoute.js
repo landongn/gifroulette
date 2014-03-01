@@ -7,6 +7,10 @@ App.PlayRoute = Em.Route.extend({
 	},
 	gifCount : 0,
 
+	actions: {
+		
+	},
+
 	renderTemplate: function() {
 		this.render();
 

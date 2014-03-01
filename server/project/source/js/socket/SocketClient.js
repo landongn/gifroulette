@@ -12,23 +12,29 @@
 	gifs: []
  };
 
-App.SocketClient = Ember.Object.extend({
+App.SocketClient = Ember.Mixin.create({
 
 	connected: false,
 
 	init: function () {
 		this._super();
 		this._socket = io.connect();
-
+		var self = this;
 		this._socket.on('connect', function () {
-			this.set('connected', true);
-		}.bind(this));
+			self.setupEvents();
+		});
 
 		models.user = {
 			username: 'guest' + Math.floor(Math.Random * 1000)
 		};
 
 	},
+
+	profile: {},
+	lobbies: [],
+	currentChannel: '',
+
+	totalConnections: 0,
 
 	getRoster: function () {
 		return models.rosters;
@@ -54,16 +60,45 @@ App.SocketClient = Ember.Object.extend({
 
 	setupEvents: function () {
 		var self = this;
-		if (this.get('connected')) {
-			this._socket.on('gif', self.gif);
-			this._socket.on('ident', self.ident);
-			this._socket.on('request', self.request);
-			this._socket.on('upvote', self.upvote);
-			this._socket.on('loadAsset', self.loadAsset);
-			this._socket.on('displayAsset', self.displayAsset);
-			this._socket.on('chat', self.chatMessage);
-		}
-	}.observes('connected'),
+
+		this._socket.on('gif', function (d) {
+			self.gif(d);
+		});
+		this._socket.on('ident', function (data) {
+			self.ident(data);
+		});
+
+		this._socket.on('listLobbies', function (data) {
+			self.onLobbies(data);
+		});
+
+		this._socket.on('roster', function (data) {
+			self.onRoster(data);
+		});
+
+		this._socket.on('joinLobby', function (data) {
+			self.onJoin(data);
+		});
+
+		this._socket.on('upvote', self.upvote);
+		this._socket.on('downvote', self.downvote);
+
+		this._socket.on('loadAsset', self.loadAsset);
+		this._socket.on('displayAsset', self.displayAsset);
+
+		this._socket.on('chat', function (data) {
+			self.chatMessage(data);
+		});
+
+		this._socket.on('profile', function (data) {
+			self.onProfile(data);
+		});
+
+		this._socket.on('totalConnections', function (data) {
+			self.updateTotalConnections(data);
+		});
+
+	},
 
 
 	gif: function (packet) {
@@ -72,26 +107,33 @@ App.SocketClient = Ember.Object.extend({
 		if (model.length >= 10) {
 			model.removeObject(model[model.length - 3]);
 		}
-		App.__container__.lookup('controller:play').send('updateGifs', packet);
+		this.send('updateGifs', packet);
 	},
 	ident: function (packet) {
-		this.emit('packet', {type: 'ident', username: models.user.username});
+		/*global prompt*/
+		var userChoice = prompt('choose a username');
+		this.emit('ident', {userData: {username: userChoice}});
 	},
-	request: function (packet) {},
+	onLobbies: function (packet) {
+		this.get('lobbies').pushObjects(packet);
+	},
+	onRoster: function (packet) {
+		this.get('users').pushObjects(packet);
+	},
+	onJoin: function (packet) {
+		this.set('currentChannel', packet);
+	},
+	updateTotalConnections: function (packet) {
+		this.set('totalConnections', packet);
+	},
+	onProfile: function (packet) {
+		this.set('profile', packet);
+	},
 	upvote: function (packet) {},
+	downvote: function (packet) {},
 	loadAsset: function (packet) {},
 	displayAsset: function (packet) {},
 	chatMessage: function (packet) {
-		App.__container__.lookup('controller:chatlog').send('newMessage', packet);
-	},
-
-	sendMessage: function (packet) {
-		var p = {
-			message: packet,
-			type: 'chat',
-			username: models.user.username
-		};
-
-		this.emit('packet', p);
+		this.send('newMessage', packet);
 	}
 });

@@ -5,6 +5,8 @@ var config = require('./config');
 var io = require('socket.io');
 var gifroulette = require('./gifroulette');
 
+
+
 /* server configuration ========================== */
 var server = new Hapi.Server(config.hostname, config.port, {
 	views: config.views
@@ -37,7 +39,9 @@ server.route(require('./routes/index'));
 /* end routes ===================================== */
 
 server.start(function () {
-	var svr = new gifroulette(io.listen(server.listener));
+	var listener = io.listen(server.listener);
+	listener.set('log level', 1);
+	var svr = new gifroulette(listener);
     console.log('server started on port: ', server.info.port);
 });
 

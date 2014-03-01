@@ -1,6 +1,6 @@
-App.PlayController = Ember.ArrayController.extend({
+App.PlayController = Ember.ArrayController.extend(App.SocketClient, {
 	currentGif: null,
-
+	needs: ['chatlog'],
 	isEmpty: function () {
 		if (this.length) {
 			return true;
@@ -15,6 +15,7 @@ App.PlayController = Ember.ArrayController.extend({
 	actions: {
 		updateGifs: function (gifs) {
 			this.addObject(gifs);
+			this.send('newGif');
 		},
 		newGif: function () {
 			this.set('hasStatic', true);
@@ -22,10 +23,27 @@ App.PlayController = Ember.ArrayController.extend({
 				this.set('hasStatic', false);
 				var g = this.getRandomGif();
 				if (g && g.asset_url && g.asset_url.match(/\.gif/)) {
-					this.set('currentGif', g.asset_url);
+					this.set('currentGif', g);
 				}
 			}.bind(this), 350);
-		}
+		},
+
+		newMessage: function (message) {
+			this.get('controllers.chatlog').send('newMessage', message);
+		},
+
+		sendDownvote: function () {},
+		sendUpvote: function () {}
+	},
+	emitChatMessage: function (message) {
+		var p = {
+			message: message,
+			channel: this.get('profile.channel'),
+			type: 'chat',
+			username: this.get('profile.username')
+		};
+
+		this.emit('packet', p);
 	}
 
 });
