@@ -1,5 +1,6 @@
 App.PlayController = Ember.ArrayController.extend(App.SocketClient, {
 	currentGif: null,
+	currentIndex: 0,
 	needs: ['chatlog'],
 	isEmpty: function () {
 		if (this.length) {
@@ -12,17 +13,27 @@ App.PlayController = Ember.ArrayController.extend(App.SocketClient, {
 		return this.objectAt(Math.floor(Math.random() * this.get('content').length - 1));
 	},
 
+	getNextGif: function () {
+		var obj = this.objectAt(this.get('currentIndex'));
+		this.incrementProperty('currentIndex');
+		return obj;
+	},
+
 	actions: {
+
+		ohgodmyeyes: function () {
+			this.set('currentGif', '');
+		},
 		updateGifs: function (gifs) {
 			this.addObject(gifs);
 			this.send('newGif');
 		},
 		newGif: function () {
+			var g = this.getNextGif();
 			this.set('hasStatic', true);
 			Em.run.later(function () {
 				this.set('hasStatic', false);
-				var g = this.getRandomGif();
-				if (g && g.asset_url && g.asset_url.match(/\.gif/)) {
+				if (g && g.asset_url) {
 					this.set('currentGif', g);
 				}
 			}.bind(this), 350);

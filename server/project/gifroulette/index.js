@@ -133,7 +133,6 @@ Server.prototype = {
 	},
 
 	on_chat: function (socket, payload) {
-		console.log('payload on_chat: ', payload, this.roster);
 		var roster = this.roster[payload.channel].users.length;
 		console.log(roster);
 		for (var i = 0; i < roster; i++) {

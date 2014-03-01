@@ -46,29 +46,27 @@ TwitterParser.prototype = {
 		console.info('Starting TwitterParser'.green);
 		var self = this;
 
-		this._parser.stream('filter', {track:'gif'}, function (stream) {
+		this._parser.stream('filter', {track:'imgur com gif'}, function (stream) {
 			self.isStreaming = true;
 			stream.on('data', function(data) {
-				var lang = lngDetector.detect(data.text, 1);
-				if (lang.length && lang[0] && lang[0][0] === 'english') {
-					if (data.entities.urls.length) {
+					if (data.entities.urls.length &&
+						data.possibly_sensitive === false) {
 
-						for (var i = data.entities.urls.length - 1; i >= 0; i--) {
-							var tw = data.entities.urls[i];
-							var t = new Tweet({
-								from_user: data.user.screen_name,
-								from_userId: data.user.id_str,
-								asset_url: tw.expanded_url,
-								added: new Date().getTime()/1000,
-								retweets: data.retweet_count,
-								favorites: data.favorite_count,
-								status: data.text,
-								hashtags: data.entities.hashtags.join('|')
-							});
+					for (var i = data.entities.urls.length - 1; i >= 0; i--) {
+						var tw = data.entities.urls[i];
+						var t = new Tweet({
+							from_user: data.user.screen_name,
+							from_userId: data.user.id_str,
+							asset_url: tw.expanded_url,
+							added: new Date().getTime()/1000,
+							retweets: data.retweet_count,
+							favorites: data.favorite_count,
+							status: data.text,
+							hashtags: data.entities.hashtags.join('|')
+						});
 
-							t.save();
-							self.server.incomingTweet(t);
-						}
+						// t.save();
+						self.server.incomingTweet(t);
 					}
 				}
 
