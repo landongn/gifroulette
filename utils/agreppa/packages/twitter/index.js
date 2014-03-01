@@ -46,11 +46,12 @@ TwitterParser.prototype = {
 		console.info('Starting TwitterParser'.green);
 		var self = this;
 
-		this._parser.stream('filter', {track:'imgur gif'}, function (stream) {
+		this._parser.stream('filter', {track:'imgur,tumblr gif'}, function (stream) {
 			self.isStreaming = true;
 			stream.on('data', function(data) {
 					if (data.entities.urls.length &&
-						data.possibly_sensitive === false) {
+						data.possibly_sensitive === false &&
+						data.lang === 'en') {
 
 					for (var i = data.entities.urls.length - 1; i >= 0; i--) {
 						var tw = data.entities.urls[i];
