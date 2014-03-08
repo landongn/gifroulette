@@ -1,3 +1,4 @@
+var config = require('./config.js');
 module.exports = {
     yar: {
         cookieOptions: {
@@ -5,5 +6,5 @@ module.exports = {
             isSecure: false // required for non-https applications
         }
     },
-    travelogue: require('./config')
+    travelogue: config
 };

@@ -1,16 +1,14 @@
 <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
-      <h1><a href="/">gifroulette</a></h1>
+      <h1>{{#link-to 'index'}}gifroulette{{/link-to}}</h1>
     </li>
   </ul>
 
   <section class="top-bar-section">
     <!-- Left Nav Section -->
     <ul class="left">
-      {{!-- <li>{{#link-to 'join.index'}}Join{{/link-to}}</li> --}}
-      {{!-- <li>{{#link-to 'play.index'}}start the flood{{/link-to}}</li> --}}
-      {{!-- <li>{{#link-to 'lobby'}}Spectate{{/link-to}}</li> --}}
+      <li>{{#link-to 'lobby.index'}}Play{{/link-to}}</li>
     </ul>
   </section>
 </nav>
@@ -20,6 +18,5 @@
 </section>
 
 <footer>
-  <p>Sorry, Internet.</p>
-  <p>Regards, <a href="http://twitter.com/landongn">@landongn</a></p>
+  
 </footer>

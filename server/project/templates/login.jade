@@ -1,0 +1,17 @@
+!!!5
+html
+	head
+		include ./partials/head.jade
+		include ./partials/stylesheets.jade
+		title gifroulette.tv - Login
+		link(rel="stylesheet", href="/compiled/css/style.css")
+		//- script(src="/static/lib/modernizr/modernizr.js")
+
+	body
+		h1 please log in
+		a(href="/auth/twitter") log in with twitter
+		include ./partials/footer.jade
+		include ./partials/ga.jade
+		include ./partials/javascripts.jade
+		block javascripts
+

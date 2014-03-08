@@ -1,9 +1,12 @@
 App.Router.map(function() {
-	this.resource('join', function () {
+	
+	this.route('login');
+	
+	this.resource('lobby', {path: '/lobby'}, function () {
 		this.route('list');
 	});
 
-	this.resource('lobby', {path: '/lobby'}, function () {});
+	this.resource('profile');
 
 	this.resource('play', {path: '/play'}, function () {
 		this.route('setup');

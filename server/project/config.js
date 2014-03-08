@@ -1,14 +1,14 @@
-module.exports = {
+var config = {
     hostname: 'localhost',
     port: 8000,
     urls: {
         failureRedirect: '/login',
         successRedirect: '/'
     },
-    facebook: {
-        clientID: "...",
-        clientSecret: "...",
-        callbackURL: "http://localhost:8000/auth/facebook/callback"
+    twitter: {
+        consumerKey: "kaAunwc6D90LgnojtB1NA",
+        consumerSecret: "IQni6Avy989FublQOVWBCtIjQssPVC2BaocYkb0k",
+        callbackURL: "http://gifroulette.tv/auth/twitter/callback"
     },
     views: {
         engines: {
@@ -23,3 +23,5 @@ module.exports = {
         path: 'cwd'
     }
 };
+
+module.exports = config;

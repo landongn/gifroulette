@@ -1,10 +1,10 @@
 module.exports = {
 	method: 'GET',
 	path: '/',
-	handler: function (request) {
+	handler: function (request, reply) {
 		/* do things with request; */
-		request.reply.view('index', {
-        title: 'gifroulette'
-    });
+		reply.view('index', {
+			title: 'gifroulette'
+		});
 	}
 };
