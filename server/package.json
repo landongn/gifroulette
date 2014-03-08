@@ -4,14 +4,15 @@
   "version": "0.0.0",
   "author": "Landon Noss <landongn@gmail.com>",
   "dependencies": {
-    "travelogue": "~0.4.2",
-    "yar": "~0.4.0",
+    "travelogue": "~1.0.1",
+    "yar": "~1.1.0",
     "passport": "~0.1.17",
-    "hapi": "~1.20.0",
+    "hapi": "~2.6.0",
     "jade": "~0.35.0",
     "passport-local": "~0.1.6",
     "socket.io": "~0.9.16",
-    "mongoose": "~3.8.7"
+    "mongoose": "~3.8.7",
+    "passport-twitter": "~1.0.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
